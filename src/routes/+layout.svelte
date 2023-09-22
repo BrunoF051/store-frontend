@@ -65,7 +65,7 @@
 	<SideNavItems>
 		<SideNavLink text="Home" href="/" />
 		<SideNavLink text="Products" href="/products" />
-		<SideNavLink text="Link 3" />
+		<SideNavLink text="Users" href="/users" />
 		<SideNavMenu text="Menu">
 			<SideNavMenuItem href="/" text="Link 1" />
 			<SideNavMenuItem href="/" text="Link 2" />
