@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import { Tile } from 'carbon-components-svelte';
+	import { ClickableTile } from 'carbon-components-svelte';
 	import { ImageLoader } from 'carbon-components-svelte';
 	import { Button } from 'carbon-components-svelte';
 	import { Grid, Row, Column } from 'carbon-components-svelte';
@@ -9,12 +9,12 @@
 
 	export let data: PageData;
 
-	const skeletonTiles = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+	const skeletonTiles: number[] = Array.from({ length: 9 });
 </script>
 
 <Grid fullWidth>
 	<Row>
-		{#await data.data}
+		{#await data.products}
 			{#each skeletonTiles as tile}
 				<Column sm={3.5} md={4} lg={5}>
 					<SkeletonPlaceholder style="height: 4rem; width: 12rem;" />
@@ -23,8 +23,8 @@
 		{:then products}
 			{#each products as product}
 				<Column sm={3.5} md={4} lg={5}>
-					<Tile style="border-radius: 3%; margin-top: 4%;">
-						<h1>{product.title}</h1>
+					<ClickableTile href="products/{product.id}/" style="border-radius: 3%; margin-top: 4%;">
+						<h2>{product.title}</h2>
 						<ImageLoader
 							src={product.thumbnail}
 							alt={product.description}
@@ -33,7 +33,7 @@
 						/>
 						<p style="margin: 3%;">{product.description}</p>
 						<Button style="border-radius: 5%;">$ {product.price}</Button>
-					</Tile>
+					</ClickableTile>
 				</Column>
 			{/each}
 		{:catch error}
@@ -41,7 +41,7 @@
 				lowContrast
 				kind="error"
 				title="Error"
-				subtitle="A connection server error occurred."
+				subtitle={error.message}
 				caption={new Date().toLocaleString()}
 			/>
 		{/await}

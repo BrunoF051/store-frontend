@@ -8,6 +8,7 @@
 
 <Grid narrow>
 	<Row padding>
+		<Column>ID</Column>
 		<Column>Username</Column>
 		<Column>Email</Column>
 	</Row>
@@ -20,16 +21,17 @@
 	{:then users}
 		{#each users as user}
 			<Row padding>
+				<Column>{user.ID}</Column>
 				<Column>{user.username}</Column>
 				<Column>{user.email}</Column>
 			</Row>
 		{/each}
-	{:catch}
+	{:catch error}
 		<ToastNotification
 			lowContrast
 			kind="error"
 			title="Error"
-			subtitle="A connection server error occurred."
+			subtitle={error.message}
 			caption={new Date().toLocaleString()}
 		/>
 	{/await}

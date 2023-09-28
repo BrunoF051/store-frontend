@@ -26,7 +26,7 @@
 	let isOpen2 = false;
 </script>
 
-<Header company="IBM" platformName="Carbon Svelte" bind:isSideNavOpen>
+<Header company="Project" platformName="Store Svelte" bind:isSideNavOpen>
 	<svelte:fragment slot="skip-to-content">
 		<SkipToContent />
 	</svelte:fragment>
