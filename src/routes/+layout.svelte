@@ -13,17 +13,17 @@
 		SideNavMenuItem,
 		SideNavLink,
 		SkipToContent,
-		Content,
-		Grid,
-		Row,
-		Column
+		Content
 	} from 'carbon-components-svelte';
-	import SettingsAdjust from 'carbon-icons-svelte/lib/SettingsAdjust.svelte';
+	import { SettingsAdjust } from 'carbon-icons-svelte';
+	import ShoppingCart from 'carbon-icons-svelte/lib/ShoppingCart.svelte';
 	import UserAvatarFilledAlt from 'carbon-icons-svelte/lib/UserAvatarFilledAlt.svelte';
+	import Close from 'carbon-icons-svelte/lib/Close.svelte';
 
 	let isSideNavOpen = false;
 	let isOpen1 = false;
 	let isOpen2 = false;
+	let isOpen0 = false;
 </script>
 
 <Header company="Project" platformName="Store Svelte" bind:isSideNavOpen>
@@ -32,6 +32,14 @@
 	</svelte:fragment>
 	<HeaderUtilities>
 		<HeaderGlobalAction aria-label="Settings" icon={SettingsAdjust} />
+		<HeaderAction bind:isOpen={isOpen0} icon={ShoppingCart} closeIcon={ShoppingCart}>
+			<HeaderPanelLinks>
+				<HeaderPanelDivider>Your Cart</HeaderPanelDivider>
+				<HeaderPanelLink>Cart item 1</HeaderPanelLink>
+				<HeaderPanelLink>Cart item 2</HeaderPanelLink>
+				<HeaderPanelLink>Cart item 3</HeaderPanelLink>
+			</HeaderPanelLinks>
+		</HeaderAction>
 		<HeaderAction bind:isOpen={isOpen1} icon={UserAvatarFilledAlt} closeIcon={UserAvatarFilledAlt}>
 			<HeaderPanelLinks>
 				<HeaderPanelDivider>Switcher subject 1</HeaderPanelDivider>

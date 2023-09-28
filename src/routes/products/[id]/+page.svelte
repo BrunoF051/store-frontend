@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { Product } from 'carbon-icons-svelte';
 	import type { PageData } from './$types';
 	import { Button, ImageLoader, Tile } from 'carbon-components-svelte';
 
