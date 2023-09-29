@@ -1,38 +1,76 @@
 <script lang="ts">
-	import { Column, Grid, Row, ToastNotification } from 'carbon-components-svelte';
+	import {
+		Button,
+		DataTable,
+		Pagination,
+		Toolbar,
+		ToolbarContent,
+		ToolbarMenu,
+		ToolbarMenuItem,
+		ToolbarBatchActions,
+		OverflowMenu,
+		OverflowMenuItem,
+		ToolbarSearch
+	} from 'carbon-components-svelte';
+	import Save from 'carbon-icons-svelte/lib/Save.svelte';
 	import type { PageData } from './$types';
-	import { SkeletonText } from 'carbon-components-svelte';
 
 	export let data: PageData;
+
+	const { rows } = data;
+
+	let pageSize = 10;
+	let page = 1;
+	let filteredRowIds: any[] = [];
+	let selectedRowIds = [rows[0].id, rows[1].id];
+	$: console.log('filteredRowIds', filteredRowIds);
 </script>
 
-<Grid narrow>
-	<Row padding>
-		<Column>ID</Column>
-		<Column>Username</Column>
-		<Column>Email</Column>
-	</Row>
+<DataTable
+	zebra
+	sortable
+	batchSelection
+	batchExpansion
+	nonExpandableRowIds={rows.filter((row) => row.gender !== 'female').map((row) => row.id)}
+	bind:selectedRowIds
+	headers={[
+		{ key: 'overflow', empty: true },
+		{ key: 'id', value: 'Id' },
+		{ key: 'name', value: 'Name' },
+		{ key: 'email', value: 'Email' },
+		{ key: 'gender', value: 'Gender' },
+		{ key: 'address', value: 'Address' },
+		{ key: 'city', value: 'City' }
+	]}
+	{rows}
+	{pageSize}
+	{page}
+>
+	<svelte:fragment slot="expanded-row" let:row>
+		<pre>{JSON.stringify(row, null, 2)}</pre>
+	</svelte:fragment>
 
-	{#await data.data}
-		<SkeletonText />
-		<SkeletonText />
-		<SkeletonText />
-		<SkeletonText />
-	{:then users}
-		{#each users as user}
-			<Row padding>
-				<Column>{user.ID}</Column>
-				<Column>{user.username}</Column>
-				<Column>{user.email}</Column>
-			</Row>
-		{/each}
-	{:catch error}
-		<ToastNotification
-			lowContrast
-			kind="error"
-			title="Error"
-			subtitle={error.message}
-			caption={new Date().toLocaleString()}
-		/>
-	{/await}
-</Grid>
+	<svelte:fragment slot="cell" let:cell>
+		{#if cell.key === 'overflow'}
+			<OverflowMenu>
+				<OverflowMenuItem text="Restart" />
+				<OverflowMenuItem
+					href="https://cloud.ibm.com/docs/loadbalancer-service"
+					text="API documentation"
+				/>
+				<OverflowMenuItem danger text="Stop" />
+			</OverflowMenu>
+		{:else}{cell.value}{/if}
+	</svelte:fragment>
+
+	<Toolbar>
+		<ToolbarBatchActions>
+			<Button icon={Save}>Save</Button>
+		</ToolbarBatchActions>
+		<ToolbarContent>
+			<ToolbarSearch persistent value="" shouldFilterRows bind:filteredRowIds />
+		</ToolbarContent>
+	</Toolbar>
+</DataTable>
+
+<Pagination bind:pageSize bind:page totalItems={filteredRowIds.length} pageSizeInputDisabled />
