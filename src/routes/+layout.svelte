@@ -18,7 +18,6 @@
 	import { SettingsAdjust } from 'carbon-icons-svelte';
 	import ShoppingCart from 'carbon-icons-svelte/lib/ShoppingCart.svelte';
 	import UserAvatarFilledAlt from 'carbon-icons-svelte/lib/UserAvatarFilledAlt.svelte';
-	import Close from 'carbon-icons-svelte/lib/Close.svelte';
 
 	let isSideNavOpen = false;
 	let isOpen1 = false;
@@ -26,7 +25,12 @@
 	let isOpen0 = false;
 </script>
 
-<Header company="Project" platformName="Store Svelte" bind:isSideNavOpen>
+<Header
+	persistentHamburgerMenu={false}
+	company="Project"
+	platformName="Store Svelte"
+	bind:isSideNavOpen
+>
 	<svelte:fragment slot="skip-to-content">
 		<SkipToContent />
 	</svelte:fragment>
@@ -71,7 +75,7 @@
 
 <SideNav bind:isOpen={isSideNavOpen}>
 	<SideNavItems>
-		<SideNavLink text="Home" href="/" />
+		<SideNavLink text="Home" href="/datatable" />
 		<SideNavLink text="Products" href="/products" />
 		<SideNavLink text="Users" href="/users" />
 		<SideNavMenu text="Menu">

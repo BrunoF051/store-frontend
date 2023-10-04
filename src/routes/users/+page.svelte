@@ -5,8 +5,6 @@
 		Pagination,
 		Toolbar,
 		ToolbarContent,
-		ToolbarMenu,
-		ToolbarMenuItem,
 		ToolbarBatchActions,
 		OverflowMenu,
 		OverflowMenuItem,
@@ -35,7 +33,7 @@
 	bind:selectedRowIds
 	headers={[
 		{ key: 'overflow', empty: true },
-		{ key: 'id', value: 'Id' },
+		{ key: 'id', value: 'Id', sort: false },
 		{ key: 'name', value: 'Name' },
 		{ key: 'email', value: 'Email' },
 		{ key: 'gender', value: 'Gender' },
@@ -46,6 +44,8 @@
 	{pageSize}
 	{page}
 >
+	<strong slot="title">BSS Grid</strong>
+	<span slot="description" style="font-size: 1rem"> List of user from dummyjson. </span>
 	<svelte:fragment slot="expanded-row" let:row>
 		<pre>{JSON.stringify(row, null, 2)}</pre>
 	</svelte:fragment>
